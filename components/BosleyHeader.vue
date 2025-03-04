@@ -5,26 +5,6 @@
       WELCOME TO BOSLEY'S HOMEPAGE
     </div>
     
-    <div class="w-40 h-40 mx-auto mb-4 overflow-hidden border-4 border-white">
-      <img 
-        v-if="pet && pet.pictureUrl" 
-        :src="pet.pictureUrl" 
-        alt="Bosley" 
-        class="w-full h-full object-cover"
-        @error="handleImageError" 
-        ref="profileImage"
-      />
-      <img 
-        v-else-if="pet && pet.coverPictureUrl" 
-        :src="pet.coverPictureUrl" 
-        alt="Bosley" 
-        class="w-full h-full object-cover"
-        @error="handleFallbackError" 
-      />
-      <div v-else class="w-full h-full bg-black flex items-center justify-center text-5xl">
-        🐾
-      </div>
-    </div>
     
     <!-- Retro text styles with marquee effect -->
     <div class="overflow-hidden whitespace-nowrap">

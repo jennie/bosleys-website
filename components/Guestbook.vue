@@ -1,5 +1,5 @@
 <template>
-  <section class="p-4 border-2 border-white bg-black font-['Courier_New']">
+  <section class="p-4 border-2 z-20 border-white font-['Courier_New']">
     <h2 class="text-2xl font-bold mb-4 text-white text-center">== PAWBOOK ==</h2>
     <div class="text-center text-white mb-4">===========================</div>
     
@@ -12,7 +12,7 @@
         <!-- Modified entry to be square with consistent aspect ratio -->
         <div 
           class="overflow-hidden relative border-2 border-white"
-          :class="entry.photoUrl ? 'min-h-[160px]' : 'bg-black'"
+          :class="entry.photoUrl ? 'min-h-[160px]' : 'bg-transparent'"
           :style="entry.photoUrl ? `background-image: url(${entry.photoUrl}); background-size: cover; background-position: center;` : ''"
         >
           <!-- Visitor indicator for entries with photos - square style -->
@@ -56,13 +56,13 @@
       <div>
         <label for="name" class="block font-bold mb-1 text-white text-sm uppercase">YOUR NAME:</label>
         <input id="name" v-model="form.name" required
-               class="w-full p-2 border-2 border-white bg-black text-white text-sm" />
+               class="w-full p-2 border-2 border-white bg-transparent text-white text-sm" />
       </div>
       
       <div>
         <label for="message" class="block font-bold mb-1 text-white text-sm uppercase">MESSAGE FOR BOSLEY:</label>
         <textarea id="message" v-model="form.message" required
-                  class="w-full p-2 border-2 border-white bg-black text-white text-sm" rows="3"></textarea>
+                  class="w-full p-2 border-2 border-white bg-transparent text-white text-sm" rows="3"></textarea>
       </div>
       
       <!-- Interaction options - more compact layout -->
@@ -91,7 +91,7 @@
       <div>
         <label for="photo" class="block font-bold mb-1 text-white text-sm uppercase">UPLOAD PICTURE:</label>
         <input id="photo" type="file" accept="image/*" @change="handleFileChange"
-               class="w-full p-1 border-2 border-white bg-black text-white text-xs" />
+               class="w-full p-1 border-2 border-white bg-transparent text-white text-xs" />
         
         <!-- Preview - removed square aspect ratio constraint -->
         <div v-if="photoPreview" class="mt-2 border-2 border-white overflow-hidden relative" style="min-height: 160px;">
@@ -104,14 +104,14 @@
       </div>
       
       <button type="submit" :disabled="isSubmitting"
-              class="w-full bg-white text-black py-2 px-4 border-2 border-white hover:bg-black hover:text-white text-sm">
+              class="w-full bg-white text-black py-2 px-4 border-2 border-white hover:bg-transparent hover:text-white text-sm">
         {{ isSubmitting ? 'SUBMITTING...' : 'SIGN THE GUESTBOOK' }}
       </button>
     </form>
     
     <!-- Under construction element - removed animation -->
     <div class="mt-6 text-center">
-      <div class="inline-block border-2 border-white p-2 bg-black">
+      <div class="inline-block border-2 border-white p-2 bg-transparent">
         <div class="text-xs text-white">[UNDER CONSTRUCTION]</div>
       </div>
     </div>
