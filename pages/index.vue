@@ -10,7 +10,9 @@
         <DailyStats :stats="tractiveStats" />
         
         <!-- Guestbook (now below Daily Stats) -->
-        <Guestbook :entries="guestbookEntries" @add-entry="addGuestbookEntry" />
+        <div class="guestbook-container">
+          <Guestbook :entries="guestbookEntries" @add-entry="addGuestbookEntry" />
+        </div>
         
         <!-- Visit counter - retro web element -->
         <div class="text-center">
