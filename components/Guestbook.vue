@@ -1,5 +1,5 @@
 <template>
-  <section class="p-4 border-2 z-20 border-white font-['Courier_New']">
+  <section class="z-20 font-['Courier_New']">
     <h2 class="text-2xl font-bold mb-4 text-white text-center">== PAWBOOK ==</h2>
     <div class="text-center text-white mb-4">===========================</div>
     
@@ -72,19 +72,19 @@
       <div>
         <label class="block font-bold mb-1 text-white text-sm uppercase">GIVE BOSLEY:</label>
         <div class="grid grid-cols-2 gap-2 text-sm">
-          <label class="flex items-center p-1 border-2 border-white bg-black text-white cursor-pointer" :class="{ 'bg-white text-black': form.interaction === 'treat' }">
+          <label class="flex items-center p-1 border-2 border-white bg-black text-white cursor-pointer" :class="{ 'bg-white !text-black': form.interaction === 'treat' }">
             <input type="radio" v-model="form.interaction" value="treat" class="mr-1" />
             <span>🦴 A Treat</span>
           </label>
-          <label class="flex items-center p-1 border-2 border-white bg-black text-white cursor-pointer" :class="{ 'bg-white text-black': form.interaction === 'tummyRub' }">
+          <label class="flex items-center p-1 border-2 border-white bg-black text-white cursor-pointer" :class="{ 'bg-white !text-black': form.interaction === 'tummyRub' }">
             <input type="radio" v-model="form.interaction" value="tummyRub" class="mr-1" />
             <span>✋ Tummy Rub</span>
           </label>
-          <label class="flex items-center p-1 border-2 border-white bg-black text-white cursor-pointer" :class="{ 'bg-white text-black': form.interaction === 'chinScritch' }">
+          <label class="flex items-center p-1 border-2 border-white bg-black text-white cursor-pointer" :class="{ 'bg-white !text-black': form.interaction === 'chinScritch' }">
             <input type="radio" v-model="form.interaction" value="chinScritch" class="mr-1" />
             <span>👆 Chin Scritch</span>
           </label>
-          <label class="flex items-center p-1 border-2 border-white bg-black text-white cursor-pointer" :class="{ 'bg-white text-black': form.interaction === 'none' }">
+          <label class="flex items-center p-1 border-2 border-white bg-black text-white cursor-pointer" :class="{ 'bg-white !text-black': form.interaction === 'none' }">
             <input type="radio" v-model="form.interaction" value="none" class="mr-1" />
             <span>Nothing</span>
           </label>
