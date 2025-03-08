@@ -12,12 +12,20 @@
         <!-- Revised entry design with comment on left, image as square on right -->
         <div class="relative border-2 border-white bg-black overflow-hidden flex">
           <!-- Comment section (always on left, full width without photo, partial with photo) -->
-          <div class="p-3 text-white relative z-10" :class="entry.photoUrl ? 'w-[85%]' : 'w-full'">
+          <div class="p-3 text-white relative z-10 flex-1">
             <!-- Header with name and date -->
             <div class="flex justify-between items-center mb-2">
               <div class="font-bold">{{ entry.name }}</div>
-              <div class="text-xs text-white">
-                {{ new Date(entry.createdAt).toLocaleDateString() }}
+              <div class="text-xs text-white min-w-[170px] text-right bg-black px-2 py-1">
+                {{ new Date(entry.createdAt).toLocaleString('en-US', { 
+                  year: 'numeric', 
+                  month: 'numeric', 
+                  day: 'numeric',
+                  hour: '2-digit', 
+                  minute: '2-digit', 
+                  second: '2-digit',
+                  hour12: true 
+                }) }}
               </div>
             </div>
             
@@ -34,10 +42,8 @@
           
           <!-- Image container (only if photo exists) -->
           <div v-if="entry.photoUrl" class="absolute right-0 top-0 bottom-0 w-[40%] bg-black">
-            <!-- Visitor indicator for entries with photos -->
-            <div class="absolute top-0 right-0 bg-black border-l-2 border-b-2 border-white p-1 z-20">
-              <div class="text-xs text-white">VISITOR!</div>
-            </div>
+
+
             
             <!-- The photo as background image in a square container -->
             <div 
@@ -99,11 +105,19 @@
         <!-- Preview with new design -->
         <div v-if="photoPreview" class="mt-2 border-2 border-white bg-black overflow-hidden relative flex">
           <!-- Comment preview section -->
-          <div class="p-3 text-white relative z-10 w-[85%]">
+          <div class="p-3 text-white relative z-10 flex-1">
             <div class="flex justify-between items-center mb-2">
               <div class="font-bold">{{ form.name || 'Your Name' }}</div>
-              <div class="text-xs text-white">
-                {{ new Date().toLocaleDateString() }}
+              <div class="text-xs text-white min-w-[170px] text-right bg-black px-2 py-1">
+                {{ new Date().toLocaleString('en-US', { 
+                  year: 'numeric', 
+                  month: 'numeric', 
+                  day: 'numeric',
+                  hour: '2-digit', 
+                  minute: '2-digit', 
+                  second: '2-digit',
+                  hour12: true 
+                }) }}
               </div>
             </div>
             <p class="text-sm text-white">{{ form.message || 'Your message will appear like this' }}</p>

@@ -6,8 +6,11 @@
       
       <!-- Main content area with single-column layout -->
       <div class="flex flex-col gap-8">
+        <!-- Loading animation -->
+        <AsciiLoading :is-loading="isLoading" message="Fetching Bosley's tracking data..." />
+        
         <!-- Daily stats -->
-        <DailyStats :stats="tractiveStats" />
+        <DailyStats :stats="tractiveStats" v-if="!isLoading" />
         
         <!-- Guestbook (now below Daily Stats) -->
         <div class="guestbook-container">
@@ -33,15 +36,20 @@
 
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import AsciiLoading from '../components/AsciiLoading.vue';
+
 const tractiveStats = ref({ 
   dailyStats: { sleepHours: 0 },
   sleepHours: 0, 
 });
 const guestbookEntries = ref([]);
 const apiError = ref('');
+const isLoading = ref(true);
 
 // Fetch Tractive stats
 const fetchTractiveStats = async () => {
+  isLoading.value = true;
   try {
     const data = await $fetch('/api/tractive');
     
@@ -80,6 +88,9 @@ const fetchTractiveStats = async () => {
         lastUpdate: new Date().toISOString()
       }
     };
+  } finally {
+    // Set loading to false whether the request succeeded or failed
+    isLoading.value = false;
   }
 };
 
