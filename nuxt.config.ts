@@ -1,7 +1,32 @@
 export default defineNuxtConfig({
   modules: [
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxt/image'
   ],
+
+  image: {
+    // Enable image optimization
+    provider: 'ipx',
+    // Configure default image sizes and formats
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536,
+    },
+    presets: {
+      guestbook: {
+        modifiers: {
+          format: 'webp',
+          quality: 80,
+          width: 400,
+          height: 400,
+        }
+      }
+    }
+  },
 
   runtimeConfig: {
     mongodbUri: process.env.MONGODB_URI,
