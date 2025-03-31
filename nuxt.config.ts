@@ -7,13 +7,7 @@ export default defineNuxtConfig({
 
   // Add nitro configuration for file uploads
   nitro: {
-    preset: 'netlify',
-    output: {
-      dir: '.output',
-      publicDir: '.output/public',
-      serverDir: '.output/server',
-      assetsDir: '.output/assets'
-    }
+    preset: 'netlify'
   },
 
   image: {
@@ -43,10 +37,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     mongodbUri: process.env.MONGODB_URI,
     tractiveEmail: process.env.TRACTIVE_EMAIL,
-    tractivePassword: process.env.TRACTIVE_PASSWORD,
-    public: {
-      siteTitle: "Bosley's Website"
-    }
+    tractivePassword: process.env.TRACTIVE_PASSWORD
   },
 
   app: {
