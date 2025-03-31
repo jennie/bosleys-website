@@ -4,6 +4,15 @@ export default defineNuxtConfig({
     '@nuxt/image'
   ],
 
+  // Add nitro configuration for file uploads
+  nitro: {
+    routeRules: {
+      '/api/upload': {
+        bodySize: '10mb'
+      }
+    }
+  },
+
   image: {
     // Enable image optimization
     provider: 'ipx',
