@@ -1,13 +1,12 @@
 [build]
-  command = "npm run generate"
-  publish = "dist"
+  command = "npm run build"
+  publish = ".output/public"
 
 [[redirects]]
-  from = "/api/guestbook"
-  to = "/.netlify/functions/handle-form"
+  from = "/api/*"
+  to = "/.netlify/functions/server"
   status = 200
   force = true
-  conditions = {Method = ["POST"]}
 
 [[redirects]]
   from = "/*"
