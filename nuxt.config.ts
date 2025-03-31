@@ -7,7 +7,9 @@ export default defineNuxtConfig({
 
   // Add nitro configuration for file uploads
   nitro: {
-    preset: 'netlify'
+    prerender: {
+      routes: ['/']
+    }
   },
 
   image: {
