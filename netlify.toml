@@ -1,0 +1,44 @@
+[build]
+  command = "npm run build"
+  publish = ".output/public"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Form handling
+[[redirects]]
+  from = "/"
+  to = "/.netlify/functions/handle-form"
+  status = 200
+  force = true
+  conditions = {Method = ["POST"]}
+
+# Handle form submissions
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+# Handle static files
+[[redirects]]
+  from = "/uploads/*"
+  to = "/uploads/:splat"
+  status = 200
+  force = true 

@@ -76,7 +76,13 @@
     <div class="text-center text-white mb-4">===========================</div>
 
     <!-- Guestbook form -->
-    <form @submit.prevent="submitEntry" class="space-y-3">
+    <form
+      @submit.prevent="submitEntry"
+      class="space-y-3"
+      data-netlify="true"
+      enctype="multipart/form-data"
+      name="guestbook">
+      <input type="hidden" name="form-name" value="guestbook" />
       <div>
         <label
           for="name"
@@ -86,6 +92,7 @@
         <input
           id="name"
           v-model="form.name"
+          name="name"
           required
           class="w-full p-2 border-2 border-white bg-[#292524] text-white text-sm" />
       </div>
@@ -99,6 +106,7 @@
         <textarea
           id="message"
           v-model="form.message"
+          name="message"
           required
           class="w-full p-2 border-2 border-white bg-[#292524] text-white text-sm"
           rows="3"></textarea>
@@ -118,6 +126,7 @@
             <input
               type="radio"
               v-model="form.interaction"
+              name="interaction"
               value="treat"
               class="mr-1" />
             <span>🦴 A Treat</span>
@@ -130,6 +139,7 @@
             <input
               type="radio"
               v-model="form.interaction"
+              name="interaction"
               value="tummyRub"
               class="mr-1" />
             <span>✋ Tummy Rub</span>
@@ -142,6 +152,7 @@
             <input
               type="radio"
               v-model="form.interaction"
+              name="interaction"
               value="chinScritch"
               class="mr-1" />
             <span>👆 Chin Scritch</span>
@@ -154,6 +165,7 @@
             <input
               type="radio"
               v-model="form.interaction"
+              name="interaction"
               value="none"
               class="mr-1" />
             <span>Nothing</span>
@@ -170,6 +182,7 @@
         <input
           id="photo"
           type="file"
+          name="photo"
           accept="image/*"
           @change="handleFileChange"
           class="w-full p-1 border-2 border-white bg-[#292524] text-white text-xs" />
@@ -293,21 +306,39 @@ const submitEntry = async () => {
   isSubmitting.value = true;
 
   try {
-    // Upload photo if selected
+    // Create FormData for Netlify
+    const formData = new FormData();
+    formData.append("form-name", "guestbook");
+    formData.append("name", form.value.name);
+    formData.append("message", form.value.message);
+    formData.append("interaction", form.value.interaction);
+
     if (photoFile.value) {
-      const formData = new FormData();
       formData.append("photo", photoFile.value);
-
-      const response = await $fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      form.value.photoUrl = response.url;
     }
 
-    // Submit entry
-    await emit("add-entry", { ...form.value });
+    // Submit to Netlify
+    const response = await fetch("/", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || "Failed to submit form");
+    }
+
+    const result = await response.json();
+
+    if (!result.success) {
+      throw new Error(result.error || "Failed to submit form");
+    }
+
+    // Submit entry to our API
+    await emit("add-entry", {
+      ...form.value,
+      photoUrl: result.entry.photoUrl, // Use the URL from the server response
+    });
 
     // Refresh interaction stats
     if (interactionStats.value) {
@@ -320,7 +351,7 @@ const submitEntry = async () => {
     photoPreview.value = null;
   } catch (error) {
     console.error("Error submitting entry:", error);
-    alert("Failed to submit your entry. Please try again.");
+    alert(error.message || "Failed to submit your entry. Please try again.");
   } finally {
     isSubmitting.value = false;
   }
