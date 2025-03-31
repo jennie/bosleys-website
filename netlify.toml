@@ -23,18 +23,11 @@
 
 # Form handling
 [[redirects]]
-  from = "/"
+  from = "/api/guestbook"
   to = "/.netlify/functions/handle-form"
   status = 200
   force = true
   conditions = {Method = ["POST"]}
-
-# Handle form submissions
-[[redirects]]
-  from = "/.netlify/functions/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-  force = true
 
 # Handle static files
 [[redirects]]

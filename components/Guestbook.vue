@@ -318,7 +318,7 @@ const submitEntry = async () => {
     }
 
     // Submit to Netlify
-    const response = await fetch("/", {
+    const response = await fetch("/api/guestbook", {
       method: "POST",
       body: formData,
     });
