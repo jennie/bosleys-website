@@ -1,4 +1,5 @@
 export default defineNuxtConfig({
+  devtools: { enabled: true },
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxt/image'
@@ -6,10 +7,12 @@ export default defineNuxtConfig({
 
   // Add nitro configuration for file uploads
   nitro: {
-    routeRules: {
-      '/api/upload': {
-        bodySize: '10mb'
-      }
+    preset: 'netlify',
+    output: {
+      dir: '.output',
+      publicDir: '.output/public',
+      serverDir: '.output/server',
+      assetsDir: '.output/assets'
     }
   },
 
@@ -29,9 +32,9 @@ export default defineNuxtConfig({
       guestbook: {
         modifiers: {
           format: 'webp',
-          quality: 80,
           width: 400,
           height: 400,
+          fit: 'cover',
         }
       }
     }
@@ -51,7 +54,11 @@ export default defineNuxtConfig({
       title: "Bosley's Website",
       meta: [
         { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        {
+          name: 'description',
+          content: 'Bosley\'s personal website - A good boy\'s digital space',
+        },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
